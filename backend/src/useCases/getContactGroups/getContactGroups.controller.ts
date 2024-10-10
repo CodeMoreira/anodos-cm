@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import validator from "../../helpers/validator";
-import { param, query } from "express-validator";
+import { query } from "express-validator";
 import { GetContactGroupsUseCase } from "./getContactGroups.useCase";
 
 export class GetContactGroupsController {
