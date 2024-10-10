@@ -1,18 +1,24 @@
 import express from "express";
-import {
-  deleteUser,
-  getAllUsers,
-  getUserById,
-  registerUser,
-  updateUser,
-} from "../controllers/users.controller";
+import { FindUsersController } from "../useCases/findUsers/findUsers.controller";
+import { UpdateUserController } from "../useCases/updateUser/updateUser.controller";
+import { DeleteUserController } from "../useCases/deleteUser/deleteUser.controller";
+
+const findUsersController = new FindUsersController();
+const updateUserController = new UpdateUserController();
+const deleteUserController = new DeleteUserController();
 
 const user = express();
 
-user.get("/all", ...getAllUsers.validator, getAllUsers.handler);
-user.get("/unique/:id", ...getUserById.validator, getUserById.handler);
-user.post("/register", ...registerUser.validator, registerUser.handler);
-user.put("/update", ...updateUser.validator, updateUser.handler);
-user.delete("/:id", ...deleteUser.validator, deleteUser.handler);
+user.get("/all", ...findUsersController.validator, findUsersController.handler);
+user.put(
+  "/update/:id",
+  ...updateUserController.validator,
+  updateUserController.handler
+);
+user.delete(
+  "/:id",
+  ...deleteUserController.validator,
+  deleteUserController.handler
+);
 
 export default user;
