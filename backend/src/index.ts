@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import auth from "./routes/auth";
 import { IsAuthenticatedMiddleware } from "./middlewares/isAuthenticated";
+import contacts from "./routes/contacts";
 
 const isAuthenticatedMiddleware = new IsAuthenticatedMiddleware();
 
@@ -29,6 +30,7 @@ app.use(
 // Routes
 app.use("/auth", auth);
 app.use("/user", isAuthenticatedMiddleware.handle, user);
+app.use("/contacts", isAuthenticatedMiddleware.handle, contacts);
 
 // Error Handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

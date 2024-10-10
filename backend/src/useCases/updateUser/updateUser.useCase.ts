@@ -1,4 +1,3 @@
-import { Role } from "@prisma/client";
 import bcrypt from "bcrypt";
 import dbClient from "../../prisma/client";
 
@@ -9,14 +8,10 @@ export interface UpdateUserQuery {
 export interface UpdateUserBody {
   email?: string;
   password?: string;
-  role?: Role;
 }
 
 export class UpdateUserUseCase {
-  async execute(
-    { id }: UpdateUserQuery,
-    { email, password, role }: UpdateUserBody
-  ) {
+  async execute({ id }: UpdateUserQuery, { email, password }: UpdateUserBody) {
     const userExists = await dbClient.users.findUnique({
       where: { email },
     });
@@ -31,7 +26,7 @@ export class UpdateUserUseCase {
 
     const user = await dbClient.users.update({
       where: { id },
-      data: { email, password, role },
+      data: { email, password },
     });
 
     return user;

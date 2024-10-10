@@ -11,7 +11,7 @@ const user = express();
 
 user.get("/all", ...findUsersController.validator, findUsersController.handler);
 user.put(
-  "/update/:id",
+  "/:id",
   ...updateUserController.validator,
   updateUserController.handler
 );

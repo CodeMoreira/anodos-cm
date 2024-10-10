@@ -10,21 +10,15 @@ export class UpdateUserController {
     body("password", "Password must be at least 8 characters long")
       .optional()
       .isLength({ min: 8 }),
-    body("role", "Role must be ADMIN or USER")
-      .optional()
-      .isIn(["ADMIN", "USER"]),
   ]);
   async handler(req: Request, res: Response) {
     const { id } = req.params;
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
 
     const updateUserUseCase = new UpdateUserUseCase();
 
-    const user = await updateUserUseCase.execute(
-      { id },
-      { email, password, role }
-    );
+    const user = await updateUserUseCase.execute({ id }, { email, password });
 
-    res.json(user);
+    res.status(200).json(user);
   }
 }

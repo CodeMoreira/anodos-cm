@@ -18,6 +18,6 @@ export class CreateUserController {
 
     const user = await createUserUseCase.execute(email, password);
 
-    res.json(user);
+    res.status(201).json(user);
   }
 }

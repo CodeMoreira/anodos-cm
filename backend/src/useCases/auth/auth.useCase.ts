@@ -6,7 +6,7 @@ import { GenerateTokenProvider } from "../../provider/generateToken.provider";
 export class LoginUseCase {
   async execute(email: string, password: string) {
     const user = await dbClient.users.findUnique({
-      select: { id: true, email: true, password: true, role: true },
+      select: { id: true, email: true, password: true },
       where: { email },
     });
 

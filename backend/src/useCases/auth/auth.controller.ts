@@ -16,6 +16,6 @@ export class AuthController {
 
     const user = await loginUseCase.execute(email, password);
 
-    res.json(user);
+    res.status(200).json(user);
   }
 }

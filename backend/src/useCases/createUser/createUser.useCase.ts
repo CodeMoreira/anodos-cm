@@ -14,7 +14,7 @@ export class CreateUserUseCase {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = await dbClient.users.create({
-      data: { email, password: passwordHash, role: "USER" },
+      data: { email, password: passwordHash },
     });
 
     return user;
