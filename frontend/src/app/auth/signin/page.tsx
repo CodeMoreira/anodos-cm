@@ -3,22 +3,23 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useRouter } from 'next/navigation';
-import register from './actions/register';
+import login from '@/app/actions/login';
 
-export default function Home() {
+export default function Page() {
   const router = useRouter()
 
   const [erro, setErro] = useState('')
   const [sucesso, setSucesso] = useState(false)
 
-  const handleRegister = async (formdata: FormData) => {
+
+  const handleLogin = async (formdata: FormData) => {
     setErro('')
     setSucesso(false)
 
-    const response = await register(formdata)
+    const response = await login(formdata)
 
     if (response.erro) {
       setErro(response.erro)
@@ -36,11 +37,10 @@ export default function Home() {
     <div className='flex w-screen h-screen items-center justify-center'>
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Registro</CardTitle>
-          <CardDescription>Crie sua nova conta</CardDescription>
+          <CardTitle>Login</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={handleRegister} method='POST' className="space-y-4">
+          <form action={handleLogin} method='POST' className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -60,15 +60,6 @@ export default function Home() {
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirmarSenha">Confirmar Senha</Label>
-              <Input
-                id="confirmarSenha"
-                name="confirmarSenha"
-                type="password"
-                required
-              />
-            </div>
             {erro && (
               <Alert variant="destructive">
                 <AlertDescription>{erro}</AlertDescription>
@@ -76,12 +67,12 @@ export default function Home() {
             )}
             {sucesso && (
               <Alert>
-                <AlertDescription>Registro realizado com sucesso! Redirecionando para o login...</AlertDescription>
+                <AlertDescription>Login bem-sucedido! Aguarde...</AlertDescription>
               </Alert>
             )}
             <div className='flex gap-2'>
-              <Button disabled={sucesso} type="button" onClick={() => router.push('/auth/signin')} className="w-full" variant="outline">Ir para login</Button>
-              <Button disabled={sucesso} type="submit" className="w-full">Registrar</Button>
+              <Button disabled={sucesso} type="button" onClick={() => router.push('/')} className="w-full" variant="outline">Ir para o registro</Button>
+              <Button disabled={sucesso} type="submit" className="w-full">Entrar</Button>
             </div>
           </form>
         </CardContent>
