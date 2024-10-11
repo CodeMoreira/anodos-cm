@@ -9,6 +9,10 @@ Anodos Contact Manager is a full-stack application that allows users to manage t
 * Group management (create, update, delete groups)
 * Invite users to groups
 
+### Endpoints
+
+Import the insomia json and get all endpoints.
+
 ## Getting Started
 
 ### Prerequisites
