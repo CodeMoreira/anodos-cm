@@ -1,29 +1,27 @@
 version: "3"
 services:
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - "4000:4000"
-  #   environment:
-  #     DATABASE_URL: postgresql://postgres:123@db:5432/postgres
-  #     JWT_SECRET: mysecret
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   networks:
-  #     - anodos-network
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: postgresql://postgres:123@db:5432/postgres
+      JWT_SECRET: mysecret
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - anodos-network
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - anodos-network
-  #   environment:
-  #     AUTH_SECRET: mysecret
-  #     NEXTAUTH_URL: http://localhost:3000
-  #     AUTH_TRUST_HOST: http://localhost:3000
-  #     BACKEND_URL: http://localhost:4000
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - anodos-network
+    environment:
+      NEXTAUTH_SECRET: TV0Sz+BKTxSVhyElpS5QVnZnb6B0dpFppDem3ypb3Aw=
+      BACKEND_URL: http://localhost:4000"
 
   db:
     image: postgres
