@@ -28,6 +28,6 @@ export class RefreshTokenUserUseCase {
       id: refreshTokenExists.user_id,
     });
 
-    return { token };
+    return token;
   }
 }
