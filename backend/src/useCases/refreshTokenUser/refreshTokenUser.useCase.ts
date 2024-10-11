@@ -19,7 +19,7 @@ export class RefreshTokenUserUseCase {
     );
 
     if (refreshTokenExpired) {
-      return { token: null };
+      return null;
     }
 
     // Generate JWT

@@ -20,6 +20,6 @@ export class RefreshTokenUserController {
       return;
     }
 
-    res.status(200).json(token);
+    res.status(200).json({ token });
   }
 }
