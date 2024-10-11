@@ -30,7 +30,7 @@ export default function Page() {
     setSucesso(true)
     setTimeout(() => {
       router.push('/auth/signin')
-    }, 3000);
+    }, 2000);
   }
 
   return (

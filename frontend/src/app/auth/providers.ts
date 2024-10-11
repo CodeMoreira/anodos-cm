@@ -20,19 +20,21 @@ const providers = {
 
         const user = await res.json();
 
-        if (res.ok && user) {
-          return {
-            token: user.token,
-            refreshToken: user.refreshToken,
-            user_id: user.user_id,
-          };
+        console.log("user", user);
+
+        if (!res.ok || !user) {
+          throw new Error("Invalid email or password");
         }
 
         if (res.status === 401 || res.status === 400) {
           throw new Error(user.error);
         }
 
-        return null;
+        return {
+          token: user.token,
+          refreshToken: user.refreshToken,
+          user_id: user.user_id,
+        };
       },
     }),
   ],

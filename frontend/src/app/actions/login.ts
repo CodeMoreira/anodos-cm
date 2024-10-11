@@ -1,5 +1,7 @@
 "use server";
 
+import { signIn } from "../auth/providers";
+
 export default async function login(formdata: FormData) {
   const email = formdata.get("email") as string;
   const password = formdata.get("senha") as string;
@@ -8,19 +10,13 @@ export default async function login(formdata: FormData) {
     return { erro: "Por favor, preencha todos os campos." };
   }
 
-  const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  });
-
-  if (!response.ok) {
+  try {
+    await signIn("credentials", { email, password, redirect: false });
+    return { sucesso: true };
+  } catch (error) {
+    console.error((error as Error).message);
     return {
-      erro: "Ocorreu um erro ao fazer login. Por favor, tente novamente.",
+      erro: "Ocorreu um erro ao criar a conta. Por favor, tente novamente.",
     };
   }
-
-  return { sucesso: true };
 }
