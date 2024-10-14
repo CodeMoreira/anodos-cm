@@ -1,17 +1,10 @@
-import dayjs, { ManipulateType } from "dayjs";
+import dayjs from "dayjs";
 import dbClient from "../prisma/client";
+import splitExpiresInEnv from "../helpers/splitExpiresInEnv";
 
 export class GenerateRefreshTokenProvider {
   async execute(user_id: string) {
-    // regex to replace all characters that are not numbers in JWT_REFRESH_EXPIRES_IN
-    const expire_time = Number(
-      process.env.JWT_REFRESH_EXPIRES_IN!.replace(/\D/g, "")
-    );
-    // regex to replace all characters that are numbers in JWT_REFRESH_EXPIRES_IN
-    const expire_unit = process.env.JWT_REFRESH_EXPIRES_IN!.replace(
-      /\d/g,
-      ""
-    ) as ManipulateType;
+    const { expire_time, expire_unit } = splitExpiresInEnv();
 
     const expire_in = dayjs().add(expire_time, expire_unit).unix();
 

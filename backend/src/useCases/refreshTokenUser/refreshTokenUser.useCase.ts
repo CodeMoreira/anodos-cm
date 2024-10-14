@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import dbClient from "../../prisma/client";
 import { GenerateTokenProvider } from "../../provider/generateToken.provider";
+import splitExpiresInEnv from "../../helpers/splitExpiresInEnv";
 
 export class RefreshTokenUserUseCase {
   async execute(refreshToken: string) {
@@ -21,6 +22,17 @@ export class RefreshTokenUserUseCase {
     if (refreshTokenExpired) {
       return null;
     }
+
+    const { expire_time, expire_unit } = splitExpiresInEnv();
+
+    await dbClient.refreshToken.update({
+      where: {
+        id: refreshToken,
+      },
+      data: {
+        expire_in: dayjs().add(expire_time, expire_unit).unix(),
+      },
+    });
 
     // Generate JWT
     const generateToken = new GenerateTokenProvider();
