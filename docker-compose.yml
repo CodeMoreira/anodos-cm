@@ -5,8 +5,14 @@ services:
     ports:
       - "4000:4000"
     environment:
+      PORT: 4000
       DATABASE_URL: postgresql://postgres:123@db:5432/postgres
+      CORS_ORIGIN: http://localhost:3000
+
       JWT_SECRET: mysecret
+      JWT_EXPIRES_IN: 30s
+      JWT_REFRESH_EXPIRES_IN: 60s
+
     depends_on:
       db:
         condition: service_healthy
