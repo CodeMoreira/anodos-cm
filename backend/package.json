@@ -8,7 +8,8 @@
     "start": "node dist/src/index.js",
     "dev": "nodemon src/index.ts",
     "seed": "ts-node prisma/seed.ts",
-    "view:db": "npx prisma studio"
+    "view:db": "npx prisma studio",
+    "prisma:deploy": "npx prisma migrate deploy"
   },
   "author": "",
   "license": "ISC",
