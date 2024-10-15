@@ -16,7 +16,7 @@ export default async function login(formdata: FormData) {
   } catch (error) {
     console.error((error as Error).message);
     return {
-      erro: "Ocorreu um erro ao criar a conta. Por favor, tente novamente.",
+      erro: "Login ou senha inválidos, caso o problema persista contate o administrador.",
     };
   }
 }
