@@ -7,7 +7,7 @@ export default function splitExpiresInEnv() {
   );
   // regex to replace all characters that are numbers in JWT_REFRESH_EXPIRES_IN
   const expire_unit = process.env.JWT_REFRESH_EXPIRES_IN!.replace(
-    /\d /g,
+    /\d/g,
     ""
   ) as ManipulateType;
 
